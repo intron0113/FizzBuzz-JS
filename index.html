@@ -8,21 +8,68 @@
 
 <body>
   <h1>FizzBuzz問題</h1>
-  <div class="div1">
-    <p class="p1">FizzNum
+  <div>
+    <p>FizzNum
       <input type="text" value="" placeholder="整数を入力してください" id="text1">
     </p>
   </div>
 
-  <div class="div2">
-    <p class="p2">BuzzNum
+  <div>
+    <p>BuzzNum
       <input type="text" value="" placeholder="整数を入力してください" id="text2">
     </p>
   </div>
 
-  <p><button id="btn" type="submit">実行する</button></p>
+  <p><input type="button" value="実行する" onclick="fizzbuzz()"></p>
+  <div id="fizzbuzz-result"></div>
+  <script>
+    function fizzbuzz() {
+      const fizzNum = Number(document.getElementById('text1').value);
+      const buzzNum = Number(document.getElementById('text2').value);
+      const fbArry = [];
+      const fbText = [];
+      const fbResult = document.getElementById('fizzbuzz-result');
 
-  <script src="script.js"></script>
+      if (!Number.isInteger(fizzNum) || !Number.isInteger(buzzNum)) {
+        fbResult.textContent = '整数値を入力してください';
+        return;
+      }
+
+      for (let i = 1; i < 100; i++) {
+        const fizzCondition = (function () {
+          if (fizzNum === 0) {
+            return i === 0;
+          } else {
+            return i % fizzNum === 0;
+          }
+        })();
+
+        const buzzCondition = (function () {
+          if (buzzNum === 0) {
+            return i === 0;
+          } else {
+            return i % buzzNum === 0;
+          }
+        })();
+
+        if (fizzCondition && buzzCondition) {
+          fbArry.push('FizzBuzz' + i);
+        } else if (fizzCondition) {
+          fbArry.push('Fizz' + i);
+        } else if (buzzCondition) {
+          fbArry.push('Buzz' + i);
+        } 
+      }
+
+      for (const v of fbArry) {
+        fbText.push(`<p>${v}</p>`);
+      }
+
+      const fbHTML = fbText.join('');
+
+      fbResult.innerHTML = fbHTML;
+    }
+  </script>
 </body>
 
 </html>
